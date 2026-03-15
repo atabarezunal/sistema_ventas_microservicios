@@ -1,0 +1,9 @@
+# Credenciales y Secretos
+.env
+*.json
+serviceAccountKey.json
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
