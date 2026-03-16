@@ -6,7 +6,6 @@ use Illuminate\Support\Facades\Http;
 
 class InventoryService
 {
-
     private function headers()
     {
         return [
@@ -14,30 +13,34 @@ class InventoryService
         ];
     }
 
+    private function baseUrl()
+    {
+        return env('FLASK_SERVICE'); // debe coincidir con tu .env
+    }
+
     public function createProduct($data)
     {
         return Http::withHeaders($this->headers())
-            ->post(env('FLASK_SERVICE').'/products', $data);
+            ->post($this->baseUrl() . '/products', $data);
     }
 
     public function getProducts()
     {
         return Http::withHeaders($this->headers())
-            ->get(env('FLASK_SERVICE').'/products');
+            ->get($this->baseUrl() . '/products');
     }
 
     public function getStock($productId)
     {
         return Http::withHeaders($this->headers())
-            ->get(env('FLASK_SERVICE')."/products/$productId/stock");
+            ->get($this->baseUrl() . "/products/$productId/stock");
     }
 
     public function updateStock($productId, $quantity)
     {
         return Http::withHeaders($this->headers())
-            ->put(env('FLASK_SERVICE')."/products/$productId/stock", [
+            ->put($this->baseUrl() . "/products/$productId/stock", [
                 "quantity" => $quantity
             ]);
     }
-
 }
