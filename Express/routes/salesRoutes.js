@@ -6,8 +6,14 @@ const {
     getSales
 } = require("../controllers/salesController");
 
-router.get("/", getSales);
+const verifyGateway = require("../middleware/auth");
 
-router.post("/", createSale);
+
+// Obtener ventas
+router.get("/", verifyGateway, getSales);
+
+// Crear venta
+router.post("/", verifyGateway, createSale);
+
 
 module.exports = router;
